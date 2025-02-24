@@ -1,9 +1,9 @@
-# First Elixir Program
+# Variables, Tuples, Lists, List BIFs/Elixir Basics:
 
 # There are no multi line comments, easily. Just use multiple #s.
 
 # .puts will print something to the console quickly. Inspect will show what a variable is stored as.
-# puts is shorthand for put string.
+# puts is shorthand for "put string."
 IO.puts("Hello, World!")
 
 # VARIABLES:
