@@ -1,0 +1,3 @@
+Tutorial/Notes:
+- .exs files are for interpreted code, .ex is for compiled code.
+- "mix" is the build tool for elixir, we use to build and run projects.
