@@ -42,7 +42,7 @@ IO.puts Functions.check_palindrome("racecar")
 # Elixir doesn't have dictionaries, instead they use maps,
 # where keys are mapped to values, the key name: is mapped to the value "Alice".
 # Atoms can be either defined by :atom or atom: with maps it is more common to do atom: "value".
-# You can still use :atom but it has to be used with a longer syntax :atom => "value". Just use atom: for maps.
+# You can still use :atom but it has to be used with a longer syntax :atom => "value". Just use atom: for maps
 people = [
   %{:name => "Alice", age: 30},
   %{name: "Bob", age: 25},
