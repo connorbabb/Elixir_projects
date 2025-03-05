@@ -1,4 +1,4 @@
-# Stateless Functions:
+# Functions:
 
 # Definition:
 # Functions are stateless by default in Elixir, meaning that they don't retain any state between calls.
@@ -13,7 +13,7 @@
 # the output only depends on the inputs or parameters, so if we gave the calculator add/2 function the same inputs
 # it would continue to return 5.
 
-# Code - elixir stateless_functions.exs
+# Code - elixir functions.exs
 
 defmodule Functions do
   def add(a, b) do
