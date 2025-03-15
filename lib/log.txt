@@ -1,4 +1,0 @@
-User signed in
-Payment processed
-Error: Invalid password
-User signed in

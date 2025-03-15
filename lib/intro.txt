@@ -1,0 +1,7 @@
+Tutorial/Notes:
+- .exs files are for interpreted code, .ex is for compiled code.
+- "mix" is the build tool for elixir, we use to build and run projects.
+- There are no multi line comments, easily. Just use multiple #s.
+- .puts will print something to the console quickly. Inspect will show what a variable is stored as.
+    - puts is shorthand for "put string."
+IO.puts("Hello, World!")

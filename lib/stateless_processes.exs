@@ -43,14 +43,6 @@ defmodule Echo do
    end
 end
 
-pid = Echo.start()
-send(pid, "Hello, Elixir!")
-send(pid, "First message!")
-send(pid, "Second message!")
-send(pid, "Third message!")
-
-Process.sleep(500)
-
 
 defmodule LoggerProcess do
   def start do
@@ -67,13 +59,67 @@ defmodule LoggerProcess do
   end
 end
 
+
+defmodule StringReplacer do
+   def replace_character do
+     receive do
+       {caller, string, target, replacement} ->
+         new_string = String.replace(string, target, replacement)
+         send(caller, {:ok, new_string})
+     end
+   end
+ end
+
+ defmodule ListConcatenator do
+  def concat_lists do
+    receive do
+      {caller, lists} ->
+        result = Enum.concat(lists)
+        send(caller, {:ok, result})
+    end
+  end
+end
+
+defmodule ComputePower do
+  def power_number do
+    receive do
+      {caller, num, pow} ->
+        powered_num = :math.pow(num, pow)
+        send(caller, {:ok, powered_num})
+    end
+  end
+end
+
+# Example Usage
+pid = spawn(ListConcatenator, :concat_lists, [])
+send(pid, {self(), [[1, 2, 3], [4, 5], [6, 7, 8]]})
+
+receive do
+  {:ok, result} -> IO.inspect(result, label: "Concatenated List")
+end
+
+
+ pid = Echo.start()
+ send(pid, "Hello, Elixir!")
+ send(pid, "First message!")
+ send(pid, "Second message!")
+ send(pid, "Third message!")
+
+ # Example Usage
+ pid = spawn(StringReplacer, :replace_character, [])
+ send(pid, {self(), "hello world", "o", "0"})
+
+ receive do
+   {:ok, result} -> IO.puts("Updated String: #{result}")
+ end
+
 # Start the process
-logger_pid = LoggerProcess.start()
+# logger_pid = LoggerProcess.start()
 
 # Send messages to be logged
-send(logger_pid, {:log, "User signed in"})
-send(logger_pid, {:log, "Payment processed"})
-send(logger_pid, {:log, "Error: Invalid password"})
+# send(logger_pid, {:log, "User signed in"})
+# send(logger_pid, {:log, "Payment processed"})
+# send(logger_pid, {:log, "Error: Invalid password"})
 
 # Give it time to process
 Process.sleep(500)
