@@ -7,8 +7,7 @@
 # With no shared state multiple functions can execute in parallel safety.
 
 # Example:
-# Real-world scenario: A real world scenario of using stateless Elixir functions could be
-# creating an online calculator. If the user types in 2 + 3 and presses the enter or compute key the program
+# Real-world scenario: A real world scenario of using stateless Elixir functions could be creating an online calculator. If the user types in 2 + 3 and presses the enter or compute key the program
 # would call the add function with the parameters 2 and 3 and return 5. Since this is a stateless function
 # the output only depends on the inputs or parameters, so if we gave the calculator add/2 function the same inputs
 # it would continue to return 5.

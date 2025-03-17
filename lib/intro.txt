@@ -5,3 +5,4 @@ Tutorial/Notes:
 - .puts will print something to the console quickly. Inspect will show what a variable is stored as.
     - puts is shorthand for "put string."
 IO.puts("Hello, World!")
+- Also: Toggle View/Word Wrap or Alt+z to make long comments wrap.
