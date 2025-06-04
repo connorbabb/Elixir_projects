@@ -1,0 +1,25 @@
+Gen Server:
+
+Example of when to use Gen Server:
+    - A GenServer is great for situations like managing a cache of frequently accessed data in a web application. In this scenario, the GenServer acts as a dedicated, independent process that stores product information in memory to reduce the need for repeated, resource costly database queries. It handles requests from clients, responding immediately with cached data if available, or fetching and caching new data when it isn't already in the cache. The GenServer maintains internal state, such as a map of cached items, and processes both synchronous requests and asynchronous messages. This isolates the caching logic for better maintainability, and integrates with supervisors to ensure that the process can be restarted automatically if it crashes.
+
+Purpose of using a GenServer in systems built on BEAM languages:
+    - The purpose of using a GenServer in systems built on BEAM languages like Erlang or Elixir is to manage tasks that need to keep track of information over time or handle repeated communication in a reliable way. It gives you a structured way to create a process that can receive and respond to messages, store its own data, and make decisions based on that data. This is especially helpful when you want to isolate parts of your system so they can work independently, recover from errors more easily, and scale without affecting other parts of the application. GenServers make it simpler to build consistent and fault tolerant behavior into your system.
+
+
+Supervisors:
+
+Example of using a supervisor:
+    - In a chat application composed of independent processes such as a message router, a supervisor ensures system stability by monitoring these components and automatically handling failures. For example, if the message router crashes due to a certain type of message or a message the system cannot handle, the supervisor detects the failure and restarts only that specific process, allowing the other components to continue running unaffected. This isolation prevents a single failure from disrupting the entire application. If many failures occur in a defined timeframe, such as three crashes in ten seconds, the supervisor shuts down its children and itself, passing control to a higher supervisor to restart the child supervisor and child processes. This structured failure response increases reliability, minimizes downtime, and simplifies fault management without requiring manual intervention or complex recovery logic in each component.
+
+Purpose of Supervisors:
+    - The purpose of a supervisor in a system is to keep the system running reliably by making sure that important parts of the system stay active. It exists to handle situations where parts of the system might stop working unexpectedly, and its role is to respond to those problems in a way that prevents the entire system from failing. By doing this, it helps maintain stability and ensures that the system can recover from issues without needing constant attention from a person. Its presence means the system can continue working, even when things go wrong, by automatically taking steps to address problems as they occur.
+
+
+Gen Statem:
+
+Example of using gen statem:
+    - A gen_statem is useful in an application where a process needs to respond differently depending on its current situation or mode. For example, in a traffic light control system, a gen_statem could manage the logic that controls the light’s behavior. The traffic light has distinct states such as red, green, and yellow. Each of these states allows only specific actions and determines what should happen next. When the light is in the green state, it waits for a set time, then changes to yellow. In the yellow state, it waits again before moving to red. In the red state, it might wait for both a timer and a sensor input indicating that vehicles are present before switching to green. The gen_statem keeps track of the current state, handles incoming events or timers, and determines whether those events should be accepted or ignored based on the state. This ensures that the behavior of the traffic light is controlled, predictable, and follows a strict sequence. Using gen_statem helps keep the logic clean and ensures that each state only responds to appropriate inputs, which improves the reliability and clarity of the system.
+
+Purpose of using statem:
+    - The purpose of using a gen_statem in a system is to manage behavior that depends on a specific set of conditions or stages. It is chosen when a process needs to keep track of what condition it is currently in and change how it responds based on that condition. This pattern helps organize the logic of the process so that each condition is clearly defined and only certain actions are allowed in each one. It also ensures that transitions between conditions happen in a controlled and predictable way. Using gen_statem makes it easier to build systems where the process must follow a series of steps, rules, or modes, and where responses to events need to vary depending on the current situation.

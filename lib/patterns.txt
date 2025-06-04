@@ -1,0 +1,28 @@
+Patterns in Functions CompetantSee:
+
+Functors:
+- 2 Laws of Functors:
+    - Definition: A Functor is a type that implements a map function, allowing you to apply a function to its contained values while preserving its structure.
+    - Identity law: Applying the identity function (id(x) = x) to a functor must not change its structure or its contained values.
+    - Composition Law: Mapping two functions sequentially must be the same as mapping their composition in a single step.
+
+Chaining:
+- Definition: Chaining is a technique where multiple function calls are connected in a sequence, making the output of a function the input of another function. This approach is particularly useful for creating clear, concise, and readable code.
+- When to use it: When you are sure it will enhance readability and make it more concise, chaining is a good approach. You should not use it if you know that you will need to nest many functions, as it can make it confusing for others or ourselves to read. If the function has the chance of producing side effects like modifying global variables, we should consider not using them, and just calling them directly, rather than chaining them. Chaining supports function composition by allowing you to apply multiple functions in sequence, building complex operations from simpler ones. Chaining also creates a linear flow of operations, enhancing readability and making the sequence of operations explicit. It can also simplify error handling by propagating errors through the chain.
+- Example/Scenario: Chaining can be used when filtering out certain data, and displaying what the user wants. Let's say we have a software to store data on cattle and feed. But the user wants to sort the data on cattle that are getting fed the highest, and show their status. We would chain several functions together to first create a data structure and populate the structure only with cattle with data for feed and status available, sorting out the others. Then our next chain would be sorting the data structure by highest feed. Finally we would chain a function to print this information in a digestible form.
+
+
+Memoization:
+Purpose of Memoization:
+    - Memoization in functional programming can be implemented as a stateful recursive process that maintains a cache of previously computed results and functions. A memoize_server function begins with an empty cache and continuously waits for requests. When a request arrives, the server checks if the result for the given pair already exists in its memoization cache. If the result is found, it is immediately returned to the requester. If not, the server computes the result, sends it back to the requester, and updates the cache by inserting the new pair into the dictionary. The server then recursively calls itself with the updated cache, thus preserving state across calls. Future requests for those values are retrieved directly from the cache, significantly improving performance by avoiding redundant computations.
+
+Example of Memoization:
+    - Suppose you're computing Fibonacci numbers, where fib n = fib(n - 1) + fib(n - 2). This recursive function leads to redundant calculations for the same input values. To optimize this, you create a memoization server that maintains a cache, which is a dictionary that maps each {fib, n} to its previously computed result. When a request {requester, fib, n} is received, the server first checks the cache. If the result exists, it returns it immediately. If it does not exist, it computes fib n, stores the result in the cache, and returns it. This ensures that each Fibonacci number is only computed once, drastically improving performance, especially for large n.
+
+How each part of memoization works:
+    - When a request is made to the memoization server and the result is not already stored it first waits for and receives a request from a client, which includes the function to execute and the arguments or inputs for that function. It checks the memoization cache to see if a result already exists for that specific function and its inputs. When that result doesn't exist, it proceeds to apply the function to the arguments to compute the result. After computing the result, it sends this result back to the requester. It then updates its internal cache by storing the result alongside the specific function and argument combination used. Finally, the server recurses with the updated cache, ready to handle the next incoming request using its new cache of past computations.
+
+Bad example of Memoization:
+    - An example would be a situation where the memoization function takes in too many unpredictable variables such as a company tracking it's expenses in multiple variables, and sales. Since these variables could be not very predictable, such as 17,896,236 for sales, and 13,988,612 for expenses. Memoizing these values wouldn't matter since it is unlikely we will ever see those values again.
+
+There are no strict rules with Memoization.

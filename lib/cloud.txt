@@ -7,3 +7,10 @@ Describe an example of how someone might use a newly created virtual machine in 
 
 What is the purpose of using SSH in cloud environments like DigitalOcean, and why is it important for VM operations?
     - SSH stands for secure shell. It lets you securely connect to your virtual machine from another computer. Usually through CLI. It is vital for virtual machines since it allows you to control your virtual machine from anywhere, you can log in, run commands, install software, manage files, from anywhere. SSH encrypts all information and data sent between your device and the VM, meaning you are much less likely to get hacked. SSH login uses key pairs which are much harder to be guessed or stolen.
+
+Intermediate example of how HTTP certificates are used in a cloud system:
+    - Lets say I run a health and wellness website on a DigitalOcean Droplet that collects personal information through an online form. To keep this data secure, I install an HTTP certificate (SSL/TLS certificate) on his server. This certificate enables encrypted communication between users and the site, so that sensitive information, like names or symptoms, can’t be intercepted or read by outsiders. It also lets browsers confirm that the website is legitimate, displaying a lock icon and using "https" in the address. This builds trust with visitors and ensures their data stays private during transmission.
+
+Purpose of HTTP certificates in cloud systems:
+    - To secure communication between users and cloud-hosted services by encrypting data and proving the identity of the server. It proves to the user that the site they are on is secure, trusted, and real.
+

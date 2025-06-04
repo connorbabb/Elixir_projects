@@ -1,3 +1,5 @@
+# DO NOT DELETE
+
 defmodule Project.MixProject do
   use Mix.Project
 

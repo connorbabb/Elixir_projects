@@ -1,0 +1,122 @@
+Linux: ls, pwd, mkdir, cd
+
+Exhaustive example of how the ls command is used in a real situation:
+    - The developer wants to ensure that all required files are present before proceeding with the deployment process. To do this, they check the directory to confirm the presence of files like a database configuration, and a startup script. The developer can confidently move forward knowing that all necessary components are in place and up to date.
+
+Purpose of ls:
+    - The ls command is used to list the contents of a directory in Linux. A directory is a location that can contain files and other directories. When you use the ls command, it shows the names of all the items stored in the current directory you are working in. This helps you see what files and folders exist where you are.
+
+Example of pwd:
+    - you open a terminal and begin working. At first, you might be in your personal folder. If you use the pwd command, it will display the location of that personal folder. Now, if you move into another folder that is stored inside your personal folder and then use the pwd command again, it will show a longer path that includes both your personal folder and the one you just moved into.
+
+Purpose of the pwd command in a way that clearly demonstrates why it is useful:
+    - The purpose of the print working directory command is to show the exact location of your current directory within the overall file system. This is especially useful when you are navigating through multiple folders and need to confirm your current position.
+
+Real-world example, in plain and precise language, of how someone might use the mkdir command:
+    - For a new semester, I want to keep files for each subject separate. To do this, I create a new folder for each class, such as one for Python, one for computer Cloud, and one for MySQL. This allows me to save notes, assignments, and programs in a clear and organized structure.
+
+Purpose of mkdir:
+    - The mkdir command is used to create a new directory. A directory is a place where files and other directories can be stored. When you use the mkdir command, you are making a new empty directory that you can use to organize your files or store more directories.
+
+Purpose of the cd command:
+    - The change directory command is used to move from your current location in the file system to another folder. Its purpose is to help you navigate through the structure of directories so you can access or manage files located in different places.
+
+Example of cd:
+    - Let's say I first get onto my Linux system. I am in my personal folder to start out. I know I want to get into my folder for a class I am taking. This folder is located inside my CSE110 folder inside my school folder. I use cd to enter into my school folder. Then once I am there I change directories once more using cd to enter into my CSE110 folder.
+
+
+
+Linux: cat, head, tail, rm, apt
+
+Example of how someone might use cat in a real-world situation:
+    - A user is trying to clear up files in a directory to make space, and for clarity. There is a file he doesn't remember making called test_file.py. Instead of opening up and running this file in VSCode, he simply uses cat to display the code. He finds that the file is incomplete and only has 2 lines. It won't run, he can delete this file from his directory.
+
+Purpose of cat:
+    - The purpose of cat is to display the whole contents of a file or many files. It is a very quick way of viewing what a file contains, instead of opening up a text editor to view the contents of a file. Cat can also be used to combine two files into one new named file. It's simple, fast, and useful. Better for smaller files with less text.
+
+Example of a situation where using head:
+    - A developer only wants to see the summary at the beginning of the log file to confirm when the program started and how it was configured. Instead of opening the entire file, which could be time-consuming, or scrolling through a long document, the developer uses a method to look at just the first few lines with the head command. This allows them to quickly check the key information without being distracted by the rest of the log, and excessive scrolling.
+
+Purpose of Head:
+    - The purpose of the head command is to show only the beginning part of a text file. It is useful when you do not want to see the whole file, but just the first few lines. By default, it shows the first ten lines, but you can choose to see more or fewer lines if needed. This command is helpful when working with large files because it lets you quickly check how the file starts.
+
+Example of Tail:
+    - An administrator checks the most recent activity in the log file using the tail command to see what requests have been made and whether any errors have been recorded. Instead of opening the entire file, which could be very large, the administrator uses a method that shows only the latest part of the file. This allows them to see the newest entries at the bottom of the log, which are most relevant to the current issue.
+
+Purpose of Tail:
+    - The purpose of the tail command is to show the last part of a text file. It is commonly used when you only want to see the most recent lines in a file instead of opening and reading the entire file. By default, it shows the last ten lines, but you can adjust this number if needed.
+
+Example of rm:
+    - To keep the project directory organized and free of unnecessary clutter, the developer decides to remove the temporary files that are no longer needed. These files do not contain any important data, and their only purpose was for short-term use during testing. The developer carefully identifies which files can be safely deleted. Once sure, the developer uses a method to delete those files from the system so they are no longer visible or taking up space.
+
+Purpose of rm:
+    - The purpose of the rm command is to delete files and directories from the system. When you use this command, it removes the selected files so that they are no longer stored on your computer. This is useful when you have files you no longer need and want to free up space or keep your folders organized.
+
+Example of apt:
+    - Before installing a new package, a student uses apt to update the list of available packages. This ensures that the system knows about the latest versions of all packages. Then, the student uses apt again to install the package they need. The system connects to trusted software sources, downloads the correct files, and sets everything up automatically. Once the package is installed, the student can immediately begin using the new package in their projects.
+
+Purpose of apt:
+    - The purpose of the apt command is to help users manage software on a Linux system that is based on Debian, such as Ubuntu. It allows users to install new programs, update existing ones, and remove software they no longer need.
+
+
+
+Linux: touch, Add User/Group, Pub/Priv Keys, SSH
+
+Example of touch:
+    - A web developer is working on a new website project. Before writing any content, they want to organize the project by creating all the necessary files in advance. These include a file for the homepage, one for contact information, and one for a style sheet. The developer uses a method that allows them to quickly create empty versions of these files. This helps them set up the basic structure of the project without adding any content yet.
+
+Purpose of touch:
+    - The purpose of the touch command is to create a new, empty file on the system. When you run this command with a name for the file, it sets up a blank file with that name. If the file already exists, it does not change the contents of the file. Instead, it updates the file's recorded time for when it was last changed.
+
+Example of user/group management:
+    - A school has a Linux-based computer lab where students work on programming assignments. The system administrator wants each student to have their own login account so they can save their files separately and securely. The administrator creates a new user account for each student, so that each person has their own space on the system. To make file sharing easier for group projects, the administrator also creates groups based on classes. For example, all students in the same programming class are added to one group. 
+
+Purpose of user/group management:
+    - The purpose of adding users and groups is to manage access and permissions on a Linux system. A user is an individual account that can log in and use the system. Each user has their own space for files and settings. A group is a collection of users that can share access to files or resources. By organizing users into groups, it becomes easier to control what different users are allowed to do.
+
+Example of public/private keys:
+    - A developer needs to connect to a remote server to update a website. Instead of typing a password every time, the developer uses a method that involves a private key stored on their computer and a public key placed on the server. The developer sets this up once. After that, when they try to connect, the server checks that the private key on their computer matches the public key it has. If the keys match, the server allows the connection without asking for a password. This makes the connection faster and more secure, especially since the developer connects to the server often to make updates.
+
+Purpose of public/private keys:
+    - The purpose of public and private keys is to create a secure way to prove identity and allow access without using passwords. The private key stays safely stored on the user's device and is not shared. The public key is placed on the system the user wants to access. When a connection is made, the system checks whether the private key matches the public key. If they match, access is granted. 
+
+Example of SSH:
+    - A system administrator is responsible for maintaining a company’s web server, which is located in a different city. To check the server’s status, update software, or fix problems, the administrator needs to access the server securely from their own computer. Instead of traveling to the server’s location or using less secure methods, the administrator uses SSH to connect to the server over the internet. This allows them to open a command-line session on the remote server as if they were sitting in front of it.
+
+Purpose of SSH:
+    - The purpose of SSH is to create a secure way to connect to another computer over a network. It allows a person to access the command line of a remote system and control it as if they were using it directly. SSH protects the connection by encrypting the information sent between the two systems.
+
+
+SSH-ing into a droplet from a droplet.
+1. Create two droplets, give them names for what they do.
+2. Generate key:
+    ssh-keygen -t rsa -b 4096
+3. Copy public key:
+    ssh-copy-id root@<IPHERE100.00.0.0>
+4. Copy the full key:
+    cat ~/.ssh/id_rsa.pub
+5. Make the ssh directory, and nano and paste the full public key, save and quit out of nano:
+    mkdir -p ~/.ssh
+    nano ~/.ssh/authorized_keys
+6. Set permissions:
+    chmod 700 ~/.ssh
+    chmod 600 ~/.ssh/authorized_keys
+7. Ssh into reciever from sender
+    ssh root@<ReceiverIPHERE100.00.0.0>
+8. Type exit to leave ssh.
+
+To add a user and add them to groups:
+1. Create groups:
+    groupadd developers
+    groupadd admins
+2. Create/add user to groups:
+    useradd -m -G developers,admins bob
+3. Check:
+    getent group developers
+
+Generate a 4096-bit RSA Key Pair
+1. Create:
+    ssh-keygen -t rsa -b 4096
+2. Check:
+    cat ~/.ssh/id_rsa
+
