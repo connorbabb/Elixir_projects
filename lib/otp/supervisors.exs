@@ -30,12 +30,17 @@ defmodule LifecycleSupervisor do
     children = [
       %{
         id: :child1,
-        start: {LifecycleChild, :start_link, [:child1]},
+        start: {LifecycleChild, :start_link, [:Connor_Babb]},
         shutdown: 1000
       },
       %{
         id: :child2,
-        start: {LifecycleChild, :start_link, [:child2]},
+        start: {LifecycleChild, :start_link, [:Brother_Barney]},
+        shutdown: 1000
+      },
+      %{
+        id: :child3,
+        start: {LifecycleChild, :start_link, [:Billy]},
         shutdown: 1000
       }
     ]
@@ -45,7 +50,9 @@ defmodule LifecycleSupervisor do
 end
 
 {:ok, sup} = LifecycleSupervisor.start_link()
+:timer.sleep(1000)
 # Both children statting.
 
 Process.exit(sup, :shutdown)
+:timer.sleep(1000)
 # Both children TERMINATED (cleanly).

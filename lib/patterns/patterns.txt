@@ -1,0 +1,69 @@
+Patterns in Functions CompetantSee:
+
+Lazy Computation Pattern:
+
+Purpose:
+    Lazy Computation delays processing until results are needed, improving efficiency and enabling work with infinite or larger datasets. It avoids unnecessary computations by generating values only when needed. It supports scalable, responsive systems through constructs like streams or recursive processes that compute only when requested.
+
+Example:
+    A program that processes real-time sensor data but only needs values above a threshold. Instead of loading all data, a lazy stream is created, which generates sensor readings on demand. Each value is passed through a stream to discard unwanted data. The stream is not executed until Enum.take requests a specific number of valid readings. This avoids memory overhead and unnecessary computation. The stream process keeps internal state, or the last value, evaluates the next reading only when asked, and stops once enough data is collected. This makes the program efficient, responsive, and scalable.
+
+Why Lazy Computation pattern is especially suitable for scenarios involving infinite data generation:
+    The Lazy Computation pattern is ideal for infinite data generation because it only computes values as needed, rather than attempting to generate an entire infinite sequence at once. This avoids exhausting memory and allows programs to remain efficient and responsive. By using streams or recursive generators, it maintains state and produces the next value only when explicitly requested. This makes it perfect for tasks like generating even numbers, timestamps, or Fibonacci sequences without overwhelming the system.
+
+
+
+State Pattern:
+
+Example:
+    For a ride sharing app, a driver’s availability status: offline, available, or driving determines how the system responds to events. Using the State pattern, a stateful function stores each driver's status. When the driver goes online, the state changes to available. When a ride is accepted, it updates to driving. When the trip ends, it returns to available. Each incoming message (like ride requests or status changes) is handled differently based on the current state. This centralizes control, ensures valid transitions, prevents conflicting actions, and cleanly models real-world behavior using immutable state and functional recursion.
+
+Purpose:
+    The State pattern allows a function to change its behavior based on an explicit internal state. By storing state as data (like a map), it enables clean, predictable transitions between different behaviors without scattered conditionals. It supports immutability by returning new state versions and ensures behavior is tied to clear, legal state changes. This makes code easier to understand, maintain, and extend, especially in systems with dynamic behavior. The pattern promotes modularity, avoids duplication, and is essential for building reliable, state-aware functional systems.
+
+How the rules ensure it behaves properly:
+    The State pattern behaves correctly by requiring state to be explicitly passed and updated, not hidden or mutable. A function’s behavior must depend solely on this state, ensuring predictable and reproducible logic. Valid transitions between states are enforced using conditional matching or guards, preventing illegal operations. By recursively calling the function with the updated state, the pattern maintains continuity without side effects. The structure includes a clear message/event handler, state dictionary, and transition logic, all centralized. This promotes traceability, avoids scattered logic, and ensures correctness in systems with evolving behavior, especially in concurrent, asynchronous, or distributed environments.
+
+
+
+
+Factory Pattern:
+
+Example:
+    In a notification system, the Factory pattern is used to create notification data structures for different channels such as email, SMS, and push notifications on runtime input like user preferences. Each channel requires distinct formatting and fields, and the factory function encapsulates this logic, returning a new immutable value tailored to the channel type. This keeps the construction logic separate from the delivery logic, making the code easier to maintain, test, and extend. For example, adding a new channel only requires adding a new clause to the factory without modifying the core business or delivery logic. This design enhances clarity, modularity, and scalability in functional applications.
+
+Purpose:
+    The purpose of the Factory pattern in functional programming is to standardize the creation of values based on dynamic or conditional logic. This pattern supports immutability by ensuring that each execution of a function returns a new value without modifying any existing values. The pattern allows you to define a function that produces structured outputs based on input conditions, such as user input, configuration, or internal state. It also makes the codebase easier to maintain and test, because the logic for value construction is isolated and consistent. The Factory pattern simplifies the addition of new conditions or types of outputs by allowing those to be added within the factory function without requiring changes in the code that relies on the output. This improves scalability, and keeps the system flexible to new requirements.
+
+Rules:
+    There are no formal rules.
+
+
+
+
+Functors:
+- 2 Laws of Functors:
+    - Definition: A Functor is a type that implements a map function, allowing you to apply a function to its contained values while preserving its structure.
+    - Identity law: Applying the identity function (id(x) = x) to a functor must not change its structure or its contained values.
+    - Composition Law: Mapping two functions sequentially must be the same as mapping their composition in a single step.
+
+Chaining:
+- Definition: Chaining is a technique where multiple function calls are connected in a sequence, making the output of a function the input of another function. This approach is particularly useful for creating clear, concise, and readable code.
+- When to use it: When you are sure it will enhance readability and make it more concise, chaining is a good approach. You should not use it if you know that you will need to nest many functions, as it can make it confusing for others or ourselves to read. If the function has the chance of producing side effects like modifying global variables, we should consider not using them, and just calling them directly, rather than chaining them. Chaining supports function composition by allowing you to apply multiple functions in sequence, building complex operations from simpler ones. Chaining also creates a linear flow of operations, enhancing readability and making the sequence of operations explicit. It can also simplify error handling by propagating errors through the chain.
+- Example/Scenario: Chaining can be used when filtering out certain data, and displaying what the user wants. Let's say we have a software to store data on cattle and feed. But the user wants to sort the data on cattle that are getting fed the highest, and show their status. We would chain several functions together to first create a data structure and populate the structure only with cattle with data for feed and status available, sorting out the others. Then our next chain would be sorting the data structure by highest feed. Finally we would chain a function to print this information in a digestible form.
+
+
+Memoization:
+Purpose of Memoization:
+    - Memoization in functional programming can be implemented as a stateful recursive process that maintains a cache of previously computed results and functions. A memoize_server function begins with an empty cache and continuously waits for requests. When a request arrives, the server checks if the result for the given pair already exists in its memoization cache. If the result is found, it is immediately returned to the requester. If not, the server computes the result, sends it back to the requester, and updates the cache by inserting the new pair into the dictionary. The server then recursively calls itself with the updated cache, thus preserving state across calls. Future requests for those values are retrieved directly from the cache, significantly improving performance by avoiding redundant computations.
+
+Example of Memoization:
+    - Suppose you're computing Fibonacci numbers, where fib n = fib(n - 1) + fib(n - 2). This recursive function leads to redundant calculations for the same input values. To optimize this, you create a memoization server that maintains a cache, which is a dictionary that maps each {fib, n} to its previously computed result. When a request {requester, fib, n} is received, the server first checks the cache. If the result exists, it returns it immediately. If it does not exist, it computes fib n, stores the result in the cache, and returns it. This ensures that each Fibonacci number is only computed once, drastically improving performance, especially for large n.
+
+How each part of memoization works:
+    - When a request is made to the memoization server and the result is not already stored it first waits for and receives a request from a client, which includes the function to execute and the arguments or inputs for that function. It checks the memoization cache to see if a result already exists for that specific function and its inputs. When that result doesn't exist, it proceeds to apply the function to the arguments to compute the result. After computing the result, it sends this result back to the requester. It then updates its internal cache by storing the result alongside the specific function and argument combination used. Finally, the server recurses with the updated cache, ready to handle the next incoming request using its new cache of past computations.
+
+Bad example of Memoization:
+    - An example would be a situation where the memoization function takes in too many unpredictable variables such as a company tracking it's expenses in multiple variables, and sales. Since these variables could be not very predictable, such as 17,896,236 for sales, and 13,988,612 for expenses. Memoizing these values wouldn't matter since it is unlikely we will ever see those values again.
+
+There are no strict rules with Memoization.
