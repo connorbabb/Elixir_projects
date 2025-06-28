@@ -1,5 +1,51 @@
 Patterns in Functions CompetantSee:
 
+Monads:
+
+Purpose:
+    The monad pattern provides a structured way to sequence computations while maintaining consistent handling of additional context, such as failure, state, or other meta-data. It defines how functions interact by requiring them to return results in a standardized wrapper and chaining them using a bind operation. This ensures composability, predictability, and uniform behavior across different operations. Monads eliminate scattered control flow logic by embedding that logic in the structure itself. The unit function integrates plain values into this system, while bind ensures results flow through each function in order. This promotes clarity, reduces branching, and improves program correctness and maintainability.
+
+Example:
+    A program retrieves user data, validates it, formats it, and stores it. Each step might fail. Using the monad pattern, the process begins with a unit function that wraps the user ID in a monadic structure. Each operation is a function that takes raw data and returns a monadic type. The bind function applies these in sequence, extracting values and rewrapping results. If any step fails, bind halts further execution and preserves the failure state. This enforces consistent handling of meta-data across steps, satisfies associativity, and ensures data enters the monad predictably through the unit function.
+
+Rules:
+    1. There must be a bind function that takes a monadic type and a function returning another monadic type.
+    This function extracts the value from the monadic wrapper, applies a transformation, and rewraps the result in a new monadic context.
+    Implication: Enables structured chaining while preserving meta-data like failure states or computation context.
+
+    2. Bind must be part of the monad’s defined function set.
+    Bind is not optional or external—it must be a core part of the monad's interface.
+    Implication: Guarantees that chaining behavior is always available and built into the monad.
+
+    3. Bind must be associative.
+    Grouping of chained operations must not affect the outcome.
+    Implication: Ensures consistent and safe composition across multiple steps, enabling modular and reusable workflows.
+
+    4. There must be a unit function that wraps a raw value into a monadic type.
+    This introduces plain data into the monadic system without altering it.
+    Implication: Allows monadic workflows to begin or reset with clean, predictable context.
+
+
+Monoids:
+
+Purpose:
+    The Monoid pattern provides a consistent way to combine values using a binary operation and an identity element, ensuring predictable behavior in software. It helps eliminate duplicated logic by defining a single, reusable rule for combining data. In functional programming, where immutability and pure functions are core principles, Monoids support safe and side-effect-free composition. Their associativity rule enables reliable parallel and distributed computation, as the order of operations doesn’t affect the result. This makes Monoids especially useful in concurrent systems, where combining results from multiple processes must remain correct regardless of execution order, improving modularity and scalability in software design.
+
+Example:
+    Imagine you're building a web application that logs user actions, such as clicking buttons, submitting forms, or navigating pages. Each action is recorded as a text message, and all messages must be combined into a single activity log for display or storage. In this case, the set of elements is all possible strings (each representing a single log entry). The operation is string concatenation, where two log messages are combined by joining them with a newline or space. This operation satisfies all the Monoid rules: it takes exactly two inputs (a binary operation), combining any two strings results in another string (closure), the order in which you combine multiple messages doesn't affect the final log content (associativity), and the empty string acts as the identity element, meaning combining it with any log message returns the original message unchanged. This makes the Monoid pattern a perfect fit for reliably and flexibly building up the complete log from many individual entries.
+
+Rules:
+    Binary Operation: The operation must take exactly two inputs and return exactly one output.
+
+    Closure: The result of applying the operation to any two values from the set must also be a value within the same set.
+
+    Same Set Requirement: Both inputs to the operation, as well as the output, must belong to the same set. No values from outside the set may be involved in the operation.
+
+    Associativity: When applying the operation to three values, it must not matter whether the operation is applied to the first two values first or the last two values first. The final result must be the same in both cases.
+
+    Identity Element: There must be a specific value in the set such that, when the operation is applied to it and any other value in the set, the result is the other value. This must be true regardless of whether the identity value is used on the left or right side of the operation.
+
+
 Lazy Computation Pattern:
 
 Purpose:
