@@ -3,66 +3,44 @@ Data Structures:
 Random Access Lists:
 
 Operations/Complexity:
-    1. Get: Retrieves the element at a given position. The operation scans the list of tree segments, each of which contains a known number of elements. It skips over segments until it finds the one that contains the target position. Then, using a list of directions based on the position and the size of the segment, it moves through the tree to the desired element. Time Complexity: Logarithmic in the total number of elements. Why: It may skip over several segments, and then traverses one binary tree whose depth is logarithmic in its size.
+    1. Get: Retrieves the element at a given position. The operation scans the list of tree segments, each of which contains a known number of elements. It skips over segments until it finds the one that contains the target position. Then, using a list of directions based on the position and the size of the segment, it moves through the tree to the desired element. Time Complexity: Logarithmic. It may skip over several segments, and then traverses one binary tree whose depth is logarithmic in its size.
 
-    2. Update: Replaces the element at a given position with a new value. The operation behaves similarly to the retrieval function. It locates the correct tree segment and navigates to the target element using a position-based direction list. Instead of just reading the value, it builds a new version of the path with the updated value and reconstructs the structure back to the top, maintaining immutability. Time Complexity: Logarithmic in the total number of elements. Why: Like retrieval, it involves locating one segment and traversing a logarithmic-depth tree, but also requires rebuilding the changed path.
+    2. Update: Replaces the element at a given position with a new value. It locates the correct tree segment and navigates to the target element using a position-based direction list. Instead of just reading the value, it builds a new version of the path with the updated value and reconstructs the structure back to the top, maintaining immutability. Time Complexity: Logarithmic. Like retrieval, it involves locating one segment and traversing a logarithmic-depth tree, but also requires rebuilding the changed path.
 
-    3. Cons: Adds a new element to the front of the structure. It starts by checking if the first tree segment can be merged with the new element to form a complete tree. If so, it combines them and possibly continues merging with following segments. If not, it simply places a new segment at the beginning. Time Complexity: Logarithmic in the number of elements. Why: Merging may cause a chain reaction that joins several segments, but the number of such merges is limited by the binary nature of the segment sizes.
+    3. Cons: Adds a new element to the front of the structure. It starts by checking if the first tree segment can be merged with the new element to form a complete tree. If so, it combines them and possibly continues merging with following segments. If not, it simply places a new segment at the beginning with that element. Time Complexity: Logarithmic. Merging may cause a chain reaction that joins several segments, but the number of such merges is limited by the binary nature of the segment sizes.
 
-    4. Merge: Combines one tree segment with a list of existing segments, following size and shape rules. It compares the size of the new segment with the first segment in the list. If the sizes match, they are joined into a larger tree and the process continues. If not, the new segment is simply inserted at the front. Time Complexity: Logarithmic in the number of segments. Why: The number of segments is logarithmic relative to the total number of elements, and merges are only needed when sizes match.
+    4. Merge: Combines one tree segment with a list of existing segments, following size and shape rules. It compares the size of the new segment with the first segment in the list. If the sizes match, they are joined into a larger tree and the process continues. If not, the new segment is simply inserted at the front. Time Complexity: Logarithmic. The number of segments is logarithmic relative to the total number of elements, and merges are only needed when sizes match.
 
 Structures:
-    A Random Access List is organized as a sequence of tree segments. Each segment is a balanced binary tree that contains a known number of elements. These segments are stored in a list, ordered from smallest to largest based on the number of elements each contains.
+    A Random Access List is organized as a sequence of tree segments. Each segment is a balanced binary tree that contains a number of elements. These segments are stored in a list, ordered from smallest to largest based on the number of elements each contains. Each segment tracks its size and contains connections to two subtrees. The elements are placed in such a way that the position of each one can be calculated based on the sizes of the segments and the structure of the individual trees. To access or update an element at a specific position, the structure moves through the sequence of segments, subtracting the size of the tree from the index to look for, until it identifies which segment contains the target position. Once the correct segment is located, it uses a calculated path to navigate through the tree to the exact position of the element. When a new element is added to the front, the structure checks if segments of the same size are found, they are merged into a larger balanced tree. This process continues as needed to maintain the correct segment ordering and balance.
 
-    Each segment tracks its size and contains connections to two subtrees. The elements are placed in such a way that the position of each one can be calculated based on the sizes of the segments and the structure of the individual trees.
-
-    To access or update an element at a specific position, the structure moves through the sequence of segments, subtracting the sizes until it identifies which segment contains the target position. Once the correct segment is located, it uses a calculated path to navigate through the tree to the exact position of the element.
-
-    When a new element is added to the front, the structure checks whether it can be combined with existing segments. If segments of the same size are found, they are merged into a larger balanced tree. This process continues as needed to maintain the correct segment ordering and balance.
-
-    This arrangement allows the structure to support fast access by position, updates, and front insertions, while avoiding the need to rebuild the entire list for each operation.
 
 Red Black Trees:
 
 Operations/Complexity:
-    1. Contains: Checks whether a specific value is stored in the structure. The operation starts at the top of the structure. It compares the target value to the current one. If the values are equal, it confirms the value is present. If the target is smaller, it moves to the left side; if larger, it moves to the right. This continues until either the value is found or an empty position is reached, indicating the value is not present. Time Complexity: Logarithmic in the number of elements. Why: The balancing rules ensure that the depth of the tree remains proportional to the logarithm of its size, keeping the number of comparisons low.
+    1. Contains: Checks whether a specific value is stored in the structure. The operation starts at the top of the structure. It compares the target value to the current one. If the values are equal, it confirms the value is present. If the target is smaller, it moves to the left side; if larger, it moves to the right. This continues until either the value is found or an empty position is reached, returning false. Time Complexity: Logarithmic. Why: The balancing rules ensure that the depth of the tree remains proportional to the logarithm of its size, keeping the number of comparisons low.
 
-    2. Add: Inserts a new value while preserving the red-black balancing rules. The operation begins at the top and compares the new value to the current one, deciding whether to move left or right based on size. It follows this path until it finds an empty position and places the new value there, marked with a specific color. After insertion, the structure checks whether any rules are violated. These rules include restrictions on color placement and balance. If a violation is found, the structure applies a series of corrective actions. These actions may involve rotating parts of the structure or changing colors at specific positions. Once the local corrections are made, the updated portion is returned. This process continues back up to the top, ensuring the full structure still meets all balancing rules. The final result is updated so that the top position always follows a specific color rule required for consistency. Time Complexity: Logarithmic in the number of elements. Why: The structure maintains a balanced form through color and rotation rules. This keeps the depth of the tree bounded, allowing insertion to be completed with a small, predictable number of steps.
+    2. Add: Inserts a new value while preserving the red-black balancing rules. The operation begins at the top and compares the new value to the current one, deciding whether to move left or right based on size. It follows this path until it finds an empty position and places the new value there, marked with a specific color. After insertion, the structure checks whether any rules are violated. These rules include restrictions on color placement and balance. If a violation is found, the structure applies a series of corrective actions. These actions may involve rotating parts of the structure or changing colors at specific positions. Once the local corrections are made, the updated portion is returned. This process continues back up to the top, ensuring the full structure still meets all balancing rules. The final result is updated so that the top position always follows a specific color rule required for consistency. Time Complexity: Logarithmic. Why: The structure maintains a balanced form through color and rotation rules. This keeps the depth of the tree bounded, allowing insertion to be completed with a small, predictable number of steps.
 
 Structures:
-    A red-black tree is structured as a collection of elements connected in a branching form, where each element contains a value, a color, and two links to sub-elements—one on the left and one on the right.
-
-    The values are arranged so that for any element, all smaller values are located on the left, and all larger values are on the right. This ordering allows efficient searching and insertion.
-
-    Each element also has a color, which is either red or black. These colors are used to enforce rules that maintain balance in the structure. The rules include the following: the top element must always be black, red elements cannot be directly connected to other red elements, and all paths from any element to the leaves must contain the same number of black elements.
-
-    These rules are enforced during insertion by adjusting connections and changing colors when necessary. The purpose of the rules is to keep the overall depth of the structure limited, preventing it from becoming too deep on any side.
-
-    This organization allows the red-black tree to support fast searching and insertion while automatically preserving a balanced shape.
+    A red-black tree is structured as a collection of elements connected in a branching form, where each element contains a value, a color, and two links to two sub-elements on the left and right. The values are arranged so that for any element, all smaller values are located on the left, and all larger values are on the right. This ordering allows efficient searching and insertion. Each element also has a color, which is either red or black. These colors are used to enforce rules that maintain balance in the structure. The rules are that the top element must always be black, red elements cannot be directly connected to other red elements, and all paths from any element to the leaves must contain the same number of black elements. These rules are enforced during insertion by adjusting connections and changing colors when necessary. The purpose of the rules is to keep the overall depth of the structure limited, preventing it from becoming too deep on any side.
 
 
 
 Leftist Min-Heap:
 
 Operations/Complexity:
-    1. Get Minimum: Returns the smallest value stored in the structure. The operation simply accesses the value stored at the top position of the structure. Since the heap property guarantees that this value is the smallest, no traversal is needed. Time Complexity: Constant time. Why: It accesses a single position without any movement through the structure.
+    1. Get Minimum: Returns the smallest value stored in the structure by simply accessing the value stored at the top position. Since the heap property guarantees that this value is the smallest. Time Complexity: Constant time. Why: It accesses a single position without any movement through the structure.
 
-    2. Insert: Adds a new value while preserving the heap property and leftist shape. The operation creates a small structure containing only the new value. Then it merges this small structure with the existing heap. The merging process compares values and arranges branches so that the smallest value remains at the top, and the shape rule is preserved by using rank values. Time Complexity: Logarithmic in the number of elements. Why: The shape rule ensures that the shorter side of the structure remains on the right, keeping the depth proportional to the logarithm of the total elements.
+    2. Insert: Adds a new value while preserving the heap property and leftist shape. The operation creates a small structure containing only the new value. Then it merges this small structure with the existing heap. The merging process compares values and arranges branches so that the smallest value remains at the top, and the leftist rule is preserved by using rank values. Time Complexity: Logarithmic time. Why: The shape rule ensures that the shorter side of the structure remains on the right, keeping the depth proportional to the logarithm of the total elements.
 
-    3. Merge: Combines two separate heaps into one, maintaining all structural rules. The operation compares the top values of both heaps. The heap with the smaller value becomes the new top. Then it merges the other heap with one of the sub-branches of the chosen top. After merging, it adjusts the structure to maintain the shape rule by possibly swapping branches based on rank values. Time Complexity: Logarithmic in the number of elements. Why: The structure is designed so that the shorter branches are always on one side, keeping the longest path short, which limits how many comparisons and changes are needed.
+    3. Merge: Combines two separate heaps into one, maintaining all structural rules. The operation compares the top values of both heaps. The heap with the smaller value becomes the new top. Then it merges the other heap with one of the sub-branches of the chosen top. After merging, it adjusts the structure to maintain the shape rule by possibly swapping branches based on rank values. Time Complexity: Logarithmic. Why: The structure is designed so that the shorter branches are always on one side, keeping the longest path short.
 
-    4. Remove Minimum: Removes the smallest value and restructures the heap to maintain its properties. The operation removes the top value. It then merges the two branches that were under it. The merge process ensures that the smallest remaining value becomes the new top and that the shape rule is enforced through rank values. Time Complexity: Logarithmic in the number of elements. Why: Merging two branches after removal is a logarithmic operation due to the restricted depth created by the shape rule.
+    4. Remove Minimum: Removes the smallest value and restructures the heap to maintain its properties. The operation removes the top value. It then merges the two branches that were under it. The merge process ensures that the smallest remaining value becomes the new top and that the shape rule is enforced through rank values. Time Complexity: Logarithmic. Why: Merging two branches after removal is a logarithmic operation due to the restricted depth created by the shape rule.
+    
 
 Structure:
-    A leftist min-heap is structured as a tree where each element holds a value, a rank, and links to two subtrees: one on the left and one on the right.
-
-    The value at each position is less than or equal to the values in its subtrees. This rule ensures that the smallest value is always at the top of the structure.
-
-    The rank is a number stored with each element that represents the length of the shortest path from that element down to a position with no children. This rank is used to control the shape of the structure.
-
-    To maintain this shape, the structure ensures that the rank of the left subtree is always greater than or equal to the rank of the right subtree. If this condition is not met after an operation, the left and right subtrees are swapped.
-
-    This organization allows the structure to remain unbalanced in a controlled way, which makes merging two heaps efficient while still maintaining quick access to the smallest value.
+    A leftist min-heap is structured as a tree where each element holds a value, a rank, and links to two subtrees: one on the left and one on the right. The value at each position is less than or equal to the values in its subtrees. This rule ensures that the smallest value is always at the top of the structure. The rank is a number stored with each element that represents the length of the shortest path from that element down to a position with no children. This rank is used to control the shape of the structure. To maintain this shape, the structure ensures that the rank of the left subtree is always greater than or equal to the rank of the right subtree. If this condition is not met after an operation, the left and right subtrees are swapped. This makes merging two heaps efficient while still maintaining quick access to the smallest value.
 
 
 Tries:
@@ -73,15 +51,7 @@ Operations:
     2. Add: Inserts a sequence into the structure. The operation starts at the root and processes the sequence one element at a time. For each element, it checks if a branch already exists. If it does, it moves to the next level. If it does not, it creates a new branch. This continues until all elements are added. At the end, it marks the final position to indicate the complete sequence is stored. Time Complexity: Linear in the length of the sequence. Why: It processes each element in the sequence exactly once, either by following existing branches or by creating new ones.
 
 Structure:
-    A trie is structured as a collection of nested levels, where each level corresponds to one position in a sequence. Each level holds multiple labeled paths, and each path connects to another level.
-
-    At the top, the structure starts with an empty base. When a sequence is added, the first element is used to select or create a path at the current level. That path leads to the next level, where the process repeats with the next element in the sequence.
-
-    Each level stores only the paths needed for the sequences that pass through it. If multiple sequences share the same beginning elements, they share the same initial paths and levels.
-
-    When the final element of a sequence is added, a special marker is recorded at that position to indicate that the sequence ends there.
-
-    This layout allows the structure to reuse common parts of sequences and supports efficient traversal, one element at a time, during both addition and lookup.
+    Structured as a collection of nested levels. Each level corresponds to one position in a sequence. Each level holds multiple labeled paths, and each path connects to another level. At the top of the structure, it starts with an empty base. When a sequence is added, the first element creates a path at the current level leading to the next level which stores the next element in the sequence. This process repeats until the entire sequence is added. Each level stores only the path needed for the sequence to pass through them. Multiple sequences can share the same beginning elements, so they can share the same initial paths and levels. When the final element of the sequence is added a marker is made that indicates that the sequence ends there. This layout supports efficient traversal, one element at a time, during both adding and lookup.
 
 
 Binary Search Trees:
@@ -104,7 +74,7 @@ Structure:
 Dequeues:
 
 Operations/Complexity:
-    1. Empty Check: Checks whether both the front and rear lists have no elements. If both are empty, the deque is empty. Otherwise, it is not. Time Complexity: Constant time. Why: Only examines the presence or absence of elements in two lists without iteration.
+    1. Empty Check: Checks whether both the front and rear lists have no elements. If both are empty, the deque returns true, otherwise false. Time Complexity: Constant time. Why: Only examines the presence or absence of elements in two lists without iteration.
 
     2. Head: Retrieves the first element of the front list. If the front list is empty, it retrieves the last element from the rear list instead. Time Complexity: Amortized constant time. Why: Accessing the front element is constant. Reversing the rear list to find a value is linear but happens infrequently, so the average cost per operation remains constant.
 
@@ -119,43 +89,44 @@ Operations/Complexity:
     7. Dequeue (from Back): Removes the first element from the rear list. If the rear list becomes empty, it reverses the front list and assigns it as the new rear. Time Complexity: Amortized constant time. Why: Most removals occur directly from the rear list. When reversal is needed, it's linear, but amortized over time, the cost per operation remains constant.
 
 Structure:
-    A deque is organized as two separate lists.
+    Organized as two separate lists. The first list stores elements that are closer to the front of the structure. These are the elements that will be accessed or removed when performing operations from the front. New elements added to the front are placed at the beginning of this list. The second list stores elements that are closer to the back of the structure. These are the elements that will be accessed or removed when performing operations from the back. New elements added to the back are placed at the beginning of this list. When either list becomes empty and an operation requires an element from that side, the other list is reversed and used to restore access to elements from the desired end.
 
-    The first list stores elements that are closer to the front of the structure. These are the elements that will be accessed or removed when performing operations from the front. New elements added to the front are placed at the beginning of this list.
 
-    The second list stores elements that are closer to the back of the structure. These are the elements that will be accessed or removed when performing operations from the back. New elements added to the back are placed at the beginning of this list.
 
-    When either list becomes empty and an operation requires an element from that side, the other list is reversed and used to restore access to elements from the desired end. This setup allows the structure to support efficient access, addition, and removal from both the front and the back.
 
 
 Queues:
 
 Operations/Complexity:
-    Empty Check: This operation examines both the front and rear lists. If both lists contain no elements, it returns true. If either list has elements, it returns false.
-    Complexity: Constant time (O(1))
-    Explanation: It checks whether two lists are empty, which requires no iteration or recursion—just inspecting their structure.
+    Empty Check: This operation checks both the front and rear lists. If both lists contain no elements, it returns true. If either list has elements, it returns false.
+    Complexity: (O(1))
+    Explanation: It checks whether two lists are empty, which requires no iteration or recursion, just inspecting their structure.
 
-    Head: To get the first element, it checks the front list. If the front is empty, it reverses the rear list and returns the first element of the new front.
-    Complexity: Amortized constant time (O(1))
-    Explanation: If the front list is not empty, retrieving the first element takes constant time. If front is empty, the rear list is reversed, which is linear, but this reversal only happens occasionally, so the amortized cost over many operations is constant.
+    Head: Checks the front list. If the front is empty, it reverses the rear list and returns the first element of the new front.
+    Complexity: (O(1))
+    Explanation: If the front list is not empty, retrieving the first element takes constant time. If front is empty, the rear list is reversed, which is linear.
 
-    Tail: To get the most recently added element, it checks the rear list. If that list is empty, it uses the last element from the front list instead.
-    Complexity: Constant time (O(1))
-    Explanation: It simply checks the rear list or, if needed, the last element of the front list. Both cases are direct list inspections.
+    Tail: Checks the rear list. If that list is empty, it uses the last element from the front list instead.
+    Complexity: (O(1))
+    Explanation: It simply checks the rear list or, if needed, the last element of the front list. Both cases are direct list inspections, which is linear.
 
-    Enqueue: This operation adds a new element by placing it at the start of the rear list. The front list is left unchanged during this process.
-    Complexity: Constant time (O(1))
-    Explanation: Adding an element to the rear list involves prepending to a list, which takes constant time in a functional list-based representation.
+    Enqueue: This operation adds a new element by placing it at the start of the rear list.
+    Complexity: (O(1))
+    Explanation: Adding an element to the rear list to the front is very fast and linear in functional languages.
 
-    Dequeue: It removes the first element from the front list. If the front list becomes empty, it reverses the rear list and sets it as the new front, clearing rear.
-    Complexity: Amortized constant time (O(1))
-    Explanation: Removing from the front list is constant. If front is empty, the rear list is reversed, which is linear—but this happens rarely, so the amortized cost remains constant.
+    Dequeue: It removes the first element from the front list. If the front list becomes empty, it reverses the rear list and sets it as the new front, clearing the rear list.
+    Complexity: (O(1))
+    Explanation: Removing from the front list is constant. If front is empty, the rear list is reversed, which is linear.
+
+    Empty Check: Complexity: (O(1)). Explanation: It checks whether two lists are empty, which requires no iteration or recursion, just inspecting their structure. 
+
+    Head: Complexity: (O(n)). Explanation: If the front list is not empty, retrieving the first element takes constant time. If front is empty, the rear list is reversed, which is O(n). 
+        
+    Tail: Complexity: (O(n)). Explanation: Checks the rear list or, if needed, the last element of the front list. If we need to traverse to the end of the list then it will take O(n). 
+
+    Enqueue: Complexity: (O(1)) . Explanation: Enqueue prepends to the rear list ([new | rear]), which is constant time in functional languages.
+
+    Dequeue: Complexity: (O(n)). Explanation: Removing from the front list is constant. If front is empty, the rear list is reversed, which takes O(n).
 
 Structure:
-    A queue in this model is organized as a pair of two lists.
-
-    The first list holds the elements in the order they are to be removed. These are the frontmost elements of the queue. When retrieving or removing elements, the structure looks here first.
-
-    The second list holds the elements that have been most recently added. These are in reverse order from how they will eventually be removed. This list is used when the first list becomes empty. At that point, the second list is reversed and becomes the new first list, restoring the correct removal order.
-
-    Together, these two lists allow the queue to efficiently support adding elements at one end and removing them from the other.
+    A queue in this model is organized as a pair of two lists. The first list holds the elements in the order they are going to be removed. This is the front of the queue. When retrieving or removing elements, the structure looks here first. The second list holds the elements that have been most recently added. These are in reverse order from how they will eventually be removed. This list is used when the first list becomes empty. At that point, the second list is reversed and becomes the new first list, restoring the correct removal order, and removing the elements from this second list. Together, these two lists allow the queue to efficiently support adding elements at one end and removing them from the other.

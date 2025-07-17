@@ -1,6 +1,6 @@
 ExUnit.start()
 
-defmodule FunctionalQueue do
+defmodule Queue do
   def new(), do: {[], []}
 
   def empty({[], []}), do: true
@@ -34,41 +34,41 @@ defmodule FunctionalQueue do
   def length({front, rear}), do: Enum.count(front) + Enum.count(rear)
 end
 
-defmodule FunctionalQueueTest do
+defmodule QueueTest do
   use ExUnit.Case
-  alias FunctionalQueue
+  alias Queue
 
   test "empty queue checks" do
-    assert FunctionalQueue.empty({[], []}) == true
-    assert FunctionalQueue.empty({[1], []}) == false
+    assert Queue.empty({[], []}) == true
+    assert Queue.empty({[1], []}) == false
   end
 
-  test "enqueue and dequeue basics" do
-    q = FunctionalQueue.new()
-    q1 = FunctionalQueue.enqueue(q, :a)
-    q2 = FunctionalQueue.enqueue(q1, :b)
-    assert FunctionalQueue.to_list(q2) == [:a, :b]
+  test "enqueue and dequeue" do
+    q = Queue.new()
+    q1 = Queue.enqueue(q, :a)
+    q2 = Queue.enqueue(q1, :b)
+    assert Queue.to_list(q2) == [:a, :b]
 
-    q3 = FunctionalQueue.dequeue(q2)
-    assert FunctionalQueue.to_list(q3) == [:b]
+    q3 = Queue.dequeue(q2)
+    assert Queue.to_list(q3) == [:b]
   end
 
-  test "head and tail behaviors" do
-    q = FunctionalQueue.from_list([:x, :y, :z])
-    assert FunctionalQueue.head(q) == :x
-    assert FunctionalQueue.tail(q) == :z
+  test "head and tail" do
+    q = Queue.from_list([:x, :y, :z])
+    assert Queue.head(q) == :x
+    assert Queue.tail(q) == :z
   end
 
-  test "convert between queue and list" do
+  test "queue convert to list" do
     list = [:a, :b, :c]
-    q = FunctionalQueue.from_list(list)
-    assert FunctionalQueue.to_list(q) == list
+    q = Queue.from_list(list)
+    assert Queue.to_list(q) == list
   end
 
   test "reverse and length" do
-    q = FunctionalQueue.from_list([1, 2, 3])
-    reversed = FunctionalQueue.reverse(q)
-    assert FunctionalQueue.to_list(reversed) == [3, 2, 1]
-    assert FunctionalQueue.length(q) == 3
+    q = Queue.from_list([1, 2, 3])
+    reversed = Queue.reverse(q)
+    assert Queue.to_list(reversed) == [3, 2, 1]
+    assert Queue.length(q) == 3
   end
 end

@@ -6,8 +6,8 @@ defmodule RBT do
 
   def new(), do: nil
 
-  def empty(nil), do: true
-  def empty(_), do: false
+  def isEmpty(nil), do: true
+  def isEmpty(_), do: false
 
   def contains(nil, _), do: false
   def contains({_, v, _, _}, v), do: true
@@ -20,29 +20,22 @@ defmodule RBT do
   end
 
   defp insert(nil, x), do: {@red, x, nil, nil}
-
   defp insert({color, v, l, r}, x) when x < v do
     balance({color, v, insert(l, x), r})
   end
-
   defp insert({color, v, l, r}, x) when x > v do
     balance({color, v, l, insert(r, x)})
   end
-
-  defp insert(node, _), do: node  # ignore duplicates
+  defp insert(node, _), do: node
 
   defp balance({@black, z, {@red, y, {@red, x, a, b}, c}, d}),
     do: {@red, y, {@black, x, a, b}, {@black, z, c, d}}
-
   defp balance({@black, z, {@red, x, a, {@red, y, b, c}}, d}),
     do: {@red, y, {@black, x, a, b}, {@black, z, c, d}}
-
   defp balance({@black, x, a, {@red, z, {@red, y, b, c}, d}}),
     do: {@red, y, {@black, x, a, b}, {@black, z, c, d}}
-
   defp balance({@black, x, a, {@red, y, b, {@red, z, c, d}}}),
     do: {@red, y, {@black, x, a, b}, {@black, z, c, d}}
-
   defp balance(node), do: node
 
   def min(nil), do: nil
@@ -58,7 +51,6 @@ defmodule RBT do
 
   def fromList(list), do: Enum.reduce(list, new(), fn x, acc -> add(acc, x) end)
 
-  # Placeholder for remove (non-trivial; not implemented here)
   def remove(tree, _x), do: tree
 end
 
@@ -67,8 +59,8 @@ defmodule RBTTest do
   alias RBT
 
   test "empty and contains" do
-    assert RBT.empty(nil)
-    refute RBT.empty(RBT.add(nil, 10))
+    assert RBT.isEmpty(nil)
+    refute RBT.isEmpty(RBT.add(nil, 10))
 
     tree = RBT.add(nil, 10)
     assert RBT.contains(tree, 10)

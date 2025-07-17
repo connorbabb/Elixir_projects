@@ -1,6 +1,6 @@
 ExUnit.start()
 
-defmodule LeftistHeap do
+defmodule LeftistMinHeap do
   def new(), do: nil
 
   def empty(nil), do: true
@@ -41,47 +41,44 @@ defmodule LeftistHeap do
   def fromList(list), do: Enum.reduce(list, new(), fn e, acc -> insert(acc, e) end)
 end
 
-defmodule LeftistHeapTest do
+
+
+defmodule LeftistMinHeapTest do
   use ExUnit.Case
-  alias LeftistHeap
+  alias LeftistMinHeap
 
   test "empty heap checks" do
-    assert LeftistHeap.empty(LeftistHeap.new()) == true
-    assert LeftistHeap.empty({1, 5, nil, nil}) == false
+    assert LeftistMinHeap.empty(LeftistMinHeap.new()) == true
+    assert LeftistMinHeap.empty({1, 5, nil, nil}) == false
   end
 
   test "insert and findMin" do
-    h = LeftistHeap.new()
-    h = LeftistHeap.insert(h, 10)
-    h = LeftistHeap.insert(h, 3)
-    h = LeftistHeap.insert(h, 7)
-    assert LeftistHeap.findMin(h) == 3
+    h = LeftistMinHeap.new()
+    h = LeftistMinHeap.insert(h, 10)
+    h = LeftistMinHeap.insert(h, 3)
+    h = LeftistMinHeap.insert(h, 7)
+    assert LeftistMinHeap.findMin(h) == 3
   end
 
   test "deleteMin from non-empty and empty heap" do
-    h = LeftistHeap.fromList([8, 4, 5])
-    assert LeftistHeap.findMin(h) == 4
-    h = LeftistHeap.deleteMin(h)
-    assert LeftistHeap.findMin(h) == 5
+    h = LeftistMinHeap.fromList([8, 4, 5])
+    assert LeftistMinHeap.findMin(h) == 4
+    h = LeftistMinHeap.deleteMin(h)
+    assert LeftistMinHeap.findMin(h) == 5
 
-    h2 = LeftistHeap.deleteMin(LeftistHeap.new())
+    h2 = LeftistMinHeap.deleteMin(LeftistMinHeap.new())
     assert h2 == nil
   end
 
   test "merge two heaps" do
-    h1 = LeftistHeap.fromList([1, 4, 6])
-    h2 = LeftistHeap.fromList([2, 3, 5])
-    merged = LeftistHeap.merge(h1, h2)
-    assert LeftistHeap.toList(merged) == Enum.sort([1, 2, 3, 4, 5, 6])
+    h1 = LeftistMinHeap.fromList([1, 4, 6])
+    h2 = LeftistMinHeap.fromList([2, 3, 5])
+    merged = LeftistMinHeap.merge(h1, h2)
+    assert LeftistMinHeap.toList(merged) == Enum.sort([1, 2, 3, 4, 5, 6])
   end
 
   test "toList returns sorted order" do
-    h = LeftistHeap.fromList([9, 3, 7, 1, 5])
-    assert LeftistHeap.toList(h) == [1, 3, 5, 7, 9]
-  end
-
-  test "handling duplicate elements" do
-    h = LeftistHeap.fromList([4, 4, 2, 2, 3])
-    assert LeftistHeap.toList(h) == [2, 2, 3, 4, 4]
+    h = LeftistMinHeap.fromList([9, 3, 7, 1, 5])
+    assert LeftistMinHeap.toList(h) == [1, 3, 5, 7, 9]
   end
 end

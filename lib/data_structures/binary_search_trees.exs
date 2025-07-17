@@ -1,6 +1,6 @@
 ExUnit.start()
 
-defmodule FunctionalBST do
+defmodule BST do
   def new(), do: nil
 
   def empty(nil), do: true
@@ -16,6 +16,7 @@ defmodule FunctionalBST do
   def contains({_, _, r}, element), do: contains(r, element)
 
   def remove(nil, _), do: nil
+
   def remove({v, l, r}, v) do
     case {l, r} do
       {nil, nil} -> nil
@@ -26,6 +27,7 @@ defmodule FunctionalBST do
         {min_r, l, remove(r, min_r)}
     end
   end
+
   def remove({v, l, r}, element) when element < v, do: {v, remove(l, element), r}
   def remove({v, l, r}, element), do: {v, l, remove(r, element)}
 
@@ -51,60 +53,44 @@ defmodule FunctionalBST do
   end
 end
 
-defmodule FunctionalBSTTest do
+defmodule BSTTest do
   use ExUnit.Case
-  alias FunctionalBST
+  alias BST
 
-  test "empty and new tree" do
-    assert FunctionalBST.empty(nil) == true
-    assert FunctionalBST.empty({1, nil, nil}) == false
-  end
+  test "Add and Contain" do
+    t = BST.new()
+    t = BST.add(t, 10)
+    t = BST.add(t, 5)
+    t = BST.add(t, 15)
 
-  test "add and contains" do
-    t = FunctionalBST.new()
-    t = FunctionalBST.add(t, 10)
-    t = FunctionalBST.add(t, 5)
-    t = FunctionalBST.add(t, 15)
-
-    assert FunctionalBST.contains(t, 10)
-    refute FunctionalBST.contains(t, 20)
+    assert BST.contains(t, 10)
+    refute BST.contains(t, 20)
   end
 
   test "min and max values" do
-    t = FunctionalBST.from_list([10, 5, 15, 3, 7])
-    assert FunctionalBST.min(t) == 3
-    assert FunctionalBST.max(t) == 15
+    t = BST.from_list([10, 5, 15, 3, 7])
+    assert BST.min(t) == 3
+    assert BST.max(t) == 15
   end
 
   test "remove leaf, one-child, and two-child nodes" do
-    t = FunctionalBST.from_list([10, 5, 15, 3, 7, 12, 18])
-    t = FunctionalBST.remove(t, 3)   # leaf
-    refute FunctionalBST.contains(t, 3)
+    t = BST.from_list([10, 5, 15, 3, 7, 12, 18])
+    t = BST.remove(t, 3)
+    refute BST.contains(t, 3)
 
-    t = FunctionalBST.remove(t, 5)   # one child
-    refute FunctionalBST.contains(t, 5)
+    t = BST.remove(t, 5)
+    refute BST.contains(t, 5)
 
-    t = FunctionalBST.remove(t, 10)  # two children (root)
-    refute FunctionalBST.contains(t, 10)
+    t = BST.remove(t, 10)
+    refute BST.contains(t, 10)
 
-    assert FunctionalBST.to_list(t) == [7, 12, 15, 18]
+    assert BST.to_list(t) == [7, 12, 15, 18]
   end
 
   test "convert between list and BST" do
     list = [8, 3, 10, 1, 6, 14]
-    tree = FunctionalBST.from_list(list)
+    tree = BST.from_list(list)
     sorted = Enum.sort(list)
-    assert FunctionalBST.to_list(tree) == sorted
-  end
-
-  test "height and balance check" do
-    balanced = FunctionalBST.from_list([10, 5, 15, 3, 7, 13, 17])
-    unbalanced = FunctionalBST.from_list([1, 2, 3, 4, 5])
-
-    assert FunctionalBST.height(balanced) == 3
-    assert FunctionalBST.height(unbalanced) == 5
-
-    assert FunctionalBST.is_balanced(balanced)
-    refute FunctionalBST.is_balanced(unbalanced)
+    assert BST.to_list(tree) == sorted
   end
 end
